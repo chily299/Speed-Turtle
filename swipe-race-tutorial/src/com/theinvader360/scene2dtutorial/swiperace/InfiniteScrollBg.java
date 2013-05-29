@@ -10,6 +10,7 @@ public class InfiniteScrollBg extends Actor {
 		setHeight(height);
 		setPosition(width, 0);
 		addAction(forever(sequence(moveTo(0, 0, 1f), moveTo(width, 0))));
+		
 	}
 
 	@Override

@@ -12,19 +12,23 @@ public class TrafficGame extends Table {
 	private InfiniteScrollBg backgroundRoad;
 	private Array<EnemyCar> enemyCars;
 	private long lastCarTime = 0;
-	public final float lane2 = 390;
-	public final float lane1 = 240;
-	public final float lane0 = 90;
+	public  float lane2 = 0;
+	public  float lane1 = 0;
+	public  float lane0 = 0;
 	public PlayerCar playerCar;
 	
 	public TrafficGame() {
-		setBounds(0, 0, 800, 480);
+		setBounds(0,0, 800, 480);
 		setClip(true);
+		lane2 = getHeight()/2 + getHeight()/4;
+		lane1 = getHeight()/2;
+		lane0 = getHeight()/2 - getHeight()/4;
 		backgroundRoad = new InfiniteScrollBg(getWidth(),getHeight());
 		addActor(backgroundRoad);
 		playerCar = new PlayerCar(this);
 		addActor(playerCar);
 		enemyCars = new Array<EnemyCar>();		
+		
 	}
 	
 	@Override
