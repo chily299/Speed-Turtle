@@ -13,6 +13,8 @@ public class Assets {
 		atlas = new TextureAtlas(Gdx.files.internal("images.atlas"));
 		car = atlas.findRegion("car");
 		road = atlas.findRegion("road");
+		//road.setRegion(0, 0, 55, 120);
+		
 	}
 
 	public static void dispose() {

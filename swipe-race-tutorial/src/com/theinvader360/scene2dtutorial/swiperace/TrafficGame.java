@@ -20,7 +20,7 @@ public class TrafficGame extends Table {
 	public TrafficGame() {
 		setBounds(0, 0, 800, 480);
 		setClip(true);
-		backgroundRoad = new InfiniteScrollBg(getWidth(),getHeight());
+		backgroundRoad = new InfiniteScrollBg(Assets.road.getRegionWidth(),getHeight());
 		addActor(backgroundRoad);
 		playerCar = new PlayerCar(this);
 		addActor(playerCar);
