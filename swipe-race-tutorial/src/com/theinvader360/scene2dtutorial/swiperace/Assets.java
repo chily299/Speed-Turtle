@@ -10,11 +10,9 @@ public class Assets {
 	public static TextureRegion road;
 
 	public static void load() {
-		atlas = new TextureAtlas(Gdx.files.internal("images.atlas"));
-		car = atlas.findRegion("car");
+		atlas = new TextureAtlas(Gdx.files.internal("empaquetado.atlas"));
+		car = atlas.findRegion("0001");
 		road = atlas.findRegion("road");
-		//road.setRegion(0, 0, 55, 120);
-		
 	}
 
 	public static void dispose() {
