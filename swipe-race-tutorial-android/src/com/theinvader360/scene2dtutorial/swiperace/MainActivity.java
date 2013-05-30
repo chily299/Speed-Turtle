@@ -28,7 +28,7 @@ public class MainActivity extends AndroidApplication {
     
     public void onBackPressed() {
         final Dialog dialog = new Dialog(this);
-        dialog.setTitle("More by TheInvader360");
+        dialog.setTitle("Power by TheInvader360");
 
         LinearLayout ll = new LinearLayout(this);
         ll.setOrientation(LinearLayout.VERTICAL);
@@ -37,7 +37,7 @@ public class MainActivity extends AndroidApplication {
         TableRow tr1 = new TableRow(this);
         TableRow tr2 = new TableRow(this);
         
-        Button b1 = new Button(this);
+        /*Button b1 = new Button(this);
         b1.setText("Games");
         b1.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
@@ -106,7 +106,7 @@ public class MainActivity extends AndroidApplication {
         TextView tv = new TextView(this);
         tv.setText("TheInvader360 is an independent game developer making small, fun, casual games for mobile devices. Thanks for your support :)");
         tv.setPadding(4, 0, 4, 10);
-        ll.addView(tv);
+        ll.addView(tv);*/
         
         Button b7 = new Button(this);
         b7.setText("Quit");
@@ -117,7 +117,7 @@ public class MainActivity extends AndroidApplication {
         });
         ll.addView(b7);
         
-        dialog.setContentView(ll);        
+        dialog.setContentView(ll);      
         dialog.show();        
     }
 }

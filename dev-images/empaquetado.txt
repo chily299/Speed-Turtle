@@ -1,0 +1,46 @@
+empaquetado.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+espacio_poder
+  rotate: false
+  xy: 828, 2
+  size: 118, 118
+  orig: 118, 118
+  offset: 0, 0
+  index: -1
+0001
+  rotate: false
+  xy: 2, 2
+  size: 350, 250
+  orig: 350, 250
+  offset: 0, 0
+  index: -1
+car
+  rotate: false
+  xy: 706, 2
+  size: 120, 64
+  orig: 120, 64
+  offset: 0, 0
+  index: -1
+0005
+  rotate: false
+  xy: 354, 2
+  size: 350, 250
+  orig: 350, 250
+  offset: 0, 0
+  index: -1
+road
+  rotate: false
+  xy: 96, 254
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+poder
+  rotate: false
+  xy: 2, 254
+  size: 92, 91
+  orig: 92, 91
+  offset: 0, 0
+  index: -1
