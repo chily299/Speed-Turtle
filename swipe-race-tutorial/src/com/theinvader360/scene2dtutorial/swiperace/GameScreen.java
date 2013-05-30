@@ -2,22 +2,38 @@ package com.theinvader360.scene2dtutorial.swiperace;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class GameScreen implements Screen, GestureListener {
 	private Stage stage;
 	private TrafficGame trafficGame;
-
-	public GameScreen() {
+	private Menu menu;
+	private MyGame game;
+	EnemyCar salir;
+	
+	public GameScreen(MyGame _game) {
 		stage = new Stage();
 		trafficGame = new TrafficGame();
 		stage.addActor(trafficGame);
+		game = _game;
+		
+		//salir
+		
+		salir = new EnemyCar(Gdx.graphics.getWidth()-Assets.escala, 0);
+		salir.clearActions();
+		stage.addActor(salir);
 	}
 	
 	public void resize(int width, int height) {
@@ -31,9 +47,6 @@ public class GameScreen implements Screen, GestureListener {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		stage.act(delta);
 		stage.draw();
-		
-		
-		
 	}
 
 	@Override
@@ -50,13 +63,21 @@ public class GameScreen implements Screen, GestureListener {
 	public boolean fling(float velocityX, float velocityY, int button) {
 		if (velocityY < -100) trafficGame.playerCar.tryMoveUp();
 		if (velocityY > 100) trafficGame.playerCar.tryMoveDown();
+		
 		return false;
 	}
 
 	@Override public boolean touchDown(float x, float y, int pointer, int button) {
 		
+		if(y > Gdx.graphics.getHeight()-Assets.escala){
+		
 		trafficGame.playerCar.button1(x,Gdx.graphics.getHeight()- y);
-
+		if(x > Gdx.graphics.getWidth()/2){
+			if(salir.getBounds().overlaps(new Rectangle(x, y, 1, 1)));
+				game.menu();
+		}
+		}
+		
 
 		return false;
 	}

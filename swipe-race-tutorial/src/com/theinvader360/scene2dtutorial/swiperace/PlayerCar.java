@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 
 public class PlayerCar extends Actor {
+	
 	private TrafficGame trafficGame;
 	private Rectangle bounds = new Rectangle();
 	private int lane;
