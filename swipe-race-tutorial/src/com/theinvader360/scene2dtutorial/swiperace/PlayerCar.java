@@ -1,6 +1,8 @@
 package com.theinvader360.scene2dtutorial.swiperace;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -21,7 +23,7 @@ public class PlayerCar extends Actor {
 		setHeight(85);
 		lane = 1;
 		setPosition(100, trafficGame.lane1 - getHeight()/2);
-		setColor(Color.YELLOW);
+		setColor(Color.WHITE);
 		bonusArray = new Array<Bonus>();
 	}
 	
@@ -35,9 +37,10 @@ public class PlayerCar extends Actor {
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		batch.setColor(getColor().r, getColor().g, getColor().b, getColor().a);		
 		batch.draw(Assets.car, getX(), getY(), getWidth()/2, getHeight()/2, getWidth(), getHeight(), 1, 1, getRotation());
-		batch.draw(Assets.bonus_boton, 0, 0);
-		batch.draw(Assets.bonus_boton, Assets.bonus_boton.getRegionWidth(), 0);
-		batch.draw(Assets.bonus_boton, Assets.bonus_boton.getRegionWidth() * 2, 0);
+		
+		batch.draw(Assets.bonus_boton, 0, 0 ,Assets.escala,Assets.escala);
+		batch.draw(Assets.bonus_boton, Assets.bonus_boton.getRegionWidth(), 0,Assets.escala,Assets.escala);
+		batch.draw(Assets.bonus_boton, Assets.bonus_boton.getRegionWidth() * 2, 0,Assets.escala,Assets.escala);
 	}
 	
 	private void updateBounds() {
@@ -77,6 +80,10 @@ public class PlayerCar extends Actor {
 	
 	public void agregarPoder(Bonus poder){
 		bonusArray.add(poder);
+	}
+	
+	public int numeroPoderes(){
+		return bonusArray.size;
 	}
 	
 	public void sumarPuntos(int extra_puntos){
