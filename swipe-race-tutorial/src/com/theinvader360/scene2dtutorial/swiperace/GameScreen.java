@@ -55,12 +55,9 @@ public class GameScreen implements Screen, GestureListener {
 
 	@Override public boolean touchDown(float x, float y, int pointer, int button) {
 		
-<<<<<<< HEAD
 		trafficGame.playerCar.button1(x,Gdx.graphics.getHeight()- y);
 
-=======
-		
->>>>>>> 3d0933654e3bfd918b5b56bc8df4a6eca9ff55c2
+
 		return false;
 	}
 	

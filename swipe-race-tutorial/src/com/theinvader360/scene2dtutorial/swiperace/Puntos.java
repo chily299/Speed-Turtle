@@ -13,11 +13,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Puntos extends EnemyCar{
 
-<<<<<<< HEAD
 	int Puntos = 1;
 	
-=======
->>>>>>> 3d0933654e3bfd918b5b56bc8df4a6eca9ff55c2
+
 	public Puntos(float x, float y) {
 		super(x, y);
 		// TODO Auto-generated constructor stub

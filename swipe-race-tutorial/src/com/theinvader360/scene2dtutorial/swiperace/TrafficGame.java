@@ -51,6 +51,7 @@ public class TrafficGame extends Table {
 			}
 			if (enemyCar.getBounds().overlaps(playerCar.getBounds())) {
                 iter.remove();
+                playerCar.perderVida();
                 if (enemyCar.getX() > playerCar.getX()) {
                     if (enemyCar.getY() > playerCar.getY()) enemyCar.crash(true, true);
                     else enemyCar.crash(true, false);
@@ -73,15 +74,16 @@ public class TrafficGame extends Table {
 			}
 			if (enemyCar.getBounds().overlaps(playerCar.getBounds())) {
                 iterP.remove();
-<<<<<<< HEAD
-                playerCar.sumarPuntos(enemyCar.Puntos);
-=======
->>>>>>> 3d0933654e3bfd918b5b56bc8df4a6eca9ff55c2
+
+                
+
                 if (enemyCar.getX() > playerCar.getX()) {
+                	playerCar.sumarPuntos(enemyCar.Puntos);
                     if (enemyCar.getY() > playerCar.getY()) enemyCar.crash(true, true);
                     else enemyCar.crash(true, false);
                 }
                 else {
+                	playerCar.sumarPuntos(1);
                     if (enemyCar.getY() > playerCar.getY()) enemyCar.crash(false, true);
                     else enemyCar.crash(false, false);
                 }
@@ -97,9 +99,12 @@ public class TrafficGame extends Table {
 			}
 			if (enemyCar.getBounds().overlaps(playerCar.getBounds())) {
 				iterB.remove();
-               
+				if(playerCar.numeroPoderes()>2){
+					playerCar.sumarPuntos(+1);
+				}
 				enemyCar.crash(playerCar.numeroPoderes());
                    playerCar.agregarPoder(enemyCar);
+                   
 				}
 			
 		}

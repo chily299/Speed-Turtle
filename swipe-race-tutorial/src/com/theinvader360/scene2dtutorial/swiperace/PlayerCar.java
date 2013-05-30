@@ -2,17 +2,13 @@ package com.theinvader360.scene2dtutorial.swiperace;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
-<<<<<<< HEAD
+
 import java.util.Iterator;
 
-=======
->>>>>>> 3d0933654e3bfd918b5b56bc8df4a6eca9ff55c2
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 
@@ -21,7 +17,11 @@ public class PlayerCar extends Actor {
 	private Rectangle bounds = new Rectangle();
 	private int lane;
 	private int puntos;
+	private float velocidad;
+	private int vidas;
 	private Array<Bonus> bonusArray;
+	private int cont_pasivos;
+	private boolean ocupado[] = new boolean[3]; 
 	
 	
 	public PlayerCar(TrafficGame trafficGame) {
@@ -32,6 +32,8 @@ public class PlayerCar extends Actor {
 		setPosition(100, trafficGame.lane1 - getHeight()/2);
 		setColor(Color.WHITE);
 		bonusArray = new Array<Bonus>();
+		velocidad = Assets.velocidad_global;
+		vidas = 3;
 	}
 	
 	@Override
@@ -48,27 +50,27 @@ public class PlayerCar extends Actor {
 		batch.draw(Assets.bonus_boton, 0, 0 ,Assets.escala,Assets.escala);
 		batch.draw(Assets.bonus_boton, Assets.bonus_boton.getRegionWidth(), 0,Assets.escala,Assets.escala);
 		batch.draw(Assets.bonus_boton, Assets.bonus_boton.getRegionWidth() * 2, 0,Assets.escala,Assets.escala);
-<<<<<<< HEAD
+
 	
 		
         
 
         //informacion
         Assets.font.draw(batch, "Puntos: ["+puntos+"]", Gdx.graphics.getWidth()-Gdx.graphics.getWidth()/10 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
-        
-	
-=======
->>>>>>> 3d0933654e3bfd918b5b56bc8df4a6eca9ff55c2
+        Assets.font.draw(batch, "Vidas: ["+vidas+"]", 0 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
+
 	}
 	
 	private void updateBounds() {
 		bounds.set(getX(), getY(), getWidth(), getHeight());
 		Iterator<Bonus> iterB = bonusArray.iterator();
+		cont_pasivos =0;
+		ocupado[0] =ocupado[1] =ocupado[2] =false;
 		while (iterB.hasNext()) {
 			Bonus BonusActual = iterB.next();
 			if(BonusActual.esActivo){
 				if (BonusActual.isVisible()) {
-					BonusActual.setX(getX());
+					//BonusActual.setX(getX());
 					BonusActual.setY(getY());
 				}else{
 					iterB.remove();
@@ -76,10 +78,23 @@ public class PlayerCar extends Actor {
 				}
 				
 			}
-			
-			
+			 
+				if(!BonusActual.esActivo){
+					cont_pasivos++;
+					if(BonusActual.getindex() == 0){
+						ocupado[0] = true;
+					}
+					if(BonusActual.getindex() == 1){
+						ocupado[1] = true;
+					}
+					if(BonusActual.getindex() == 2){
+						ocupado[2] = true;
+					}
+				}
 			
 		}
+		
+		
 	}
 
 	public void tryMoveUp() {
@@ -106,52 +121,79 @@ public class PlayerCar extends Actor {
 		}
 	}
 
-<<<<<<< HEAD
+
 	public void button1(float x, float y){
 		if(bonusArray.size > 0 ){
+			
 			Iterator<Bonus> iterB = bonusArray.iterator();
 			while (iterB.hasNext()) {
 				Bonus BonusActual = iterB.next();
 				if (BonusActual.getBounds().x + BonusActual.getWidth() <= 0) {
 					iterB.remove();
-					removeActor(BonusActual);
+					trafficGame.removeActor(BonusActual);
+					
 				}
 				if (BonusActual.getBounds().overlaps(new Rectangle(x,y,1,1))) {					
 					BonusActual.ActivarBonus();
 					BonusActual.BonusActivo();
-					}
+					BonusActual.setX(getX());
+					
+				
+				}
+				 
+				
 				
 			}
-=======
-	public void button1(){
-		if(bonusArray.size > 0){
 			
->>>>>>> 3d0933654e3bfd918b5b56bc8df4a6eca9ff55c2
+		}
+	}
+
+	public int perderVida(){
+		if(vidas > 0){
+			vidas--;
+		}
+		if(vidas == 0){
+			clearActions();
+			addAction(rotateBy(180, 1f));
+		}
+		
+		return vidas;
+	}
+	
+	public void ganarVida(){
+		if(vidas < 4){
+		vidas ++;	
+		}
+	}
+	
+	public void agregarPoder(Bonus poder){
+		if(cont_pasivos < 3){
+		bonusArray.add(poder);
 		}
 		
 	}
-	
-<<<<<<< HEAD
-	
-	public void agregarPoder(Bonus poder){
-		bonusArray.add(poder);
-		
-=======
-	public void agregarPoder(Bonus poder){
-		bonusArray.add(poder);
->>>>>>> 3d0933654e3bfd918b5b56bc8df4a6eca9ff55c2
-	}
+
 	
 	public int numeroPoderes(){
-		return bonusArray.size;
+		if(cont_pasivos > 2){
+			return 3;
+		}else{
+			if(!ocupado[0]){
+				return 0;
+			}
+			if(!ocupado[1]){
+				return 1;
+			}
+			if(!ocupado[2]){
+				return 2;
+			}
+		}
+		
+		return 5;
 	}
 	
 	public void sumarPuntos(int extra_puntos){
-<<<<<<< HEAD
 		puntos += extra_puntos;
-=======
-		puntos = extra_puntos;
->>>>>>> 3d0933654e3bfd918b5b56bc8df4a6eca9ff55c2
 	}
 	
 	public Rectangle getBounds() {
