@@ -18,7 +18,7 @@ public class EnemyCar extends Actor {
 		int rnd = MathUtils.random(0, 3);
 		if (rnd == 0) setColor(Color.RED);
 		if (rnd == 1) setColor(Color.GREEN);
-		if (rnd == 2) setColor(Color.WHITE);
+		if (rnd == 2) setColor(Color.YELLOW);
 		if (rnd == 3) setColor(Color.BLUE);
 		
 		addAction(moveTo(-getWidth(), getY(), MathUtils.random(4.0f, 6.0f)));

@@ -28,7 +28,7 @@ public class MainActivity extends AndroidApplication {
     
     public void onBackPressed() {
         final Dialog dialog = new Dialog(this);
-        dialog.setTitle("More by TheInvader360");
+        dialog.setTitle("Power by TheInvader360");
 
         LinearLayout ll = new LinearLayout(this);
         ll.setOrientation(LinearLayout.VERTICAL);
