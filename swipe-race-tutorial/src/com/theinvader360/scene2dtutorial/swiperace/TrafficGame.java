@@ -73,7 +73,10 @@ public class TrafficGame extends Table {
 			}
 			if (enemyCar.getBounds().overlaps(playerCar.getBounds())) {
                 iterP.remove();
+<<<<<<< HEAD
                 playerCar.sumarPuntos(enemyCar.Puntos);
+=======
+>>>>>>> 3d0933654e3bfd918b5b56bc8df4a6eca9ff55c2
                 if (enemyCar.getX() > playerCar.getX()) {
                     if (enemyCar.getY() > playerCar.getY()) enemyCar.crash(true, true);
                     else enemyCar.crash(true, false);

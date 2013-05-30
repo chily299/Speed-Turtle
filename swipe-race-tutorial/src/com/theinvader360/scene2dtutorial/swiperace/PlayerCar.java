@@ -2,8 +2,11 @@ package com.theinvader360.scene2dtutorial.swiperace;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
+<<<<<<< HEAD
 import java.util.Iterator;
 
+=======
+>>>>>>> 3d0933654e3bfd918b5b56bc8df4a6eca9ff55c2
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -45,6 +48,7 @@ public class PlayerCar extends Actor {
 		batch.draw(Assets.bonus_boton, 0, 0 ,Assets.escala,Assets.escala);
 		batch.draw(Assets.bonus_boton, Assets.bonus_boton.getRegionWidth(), 0,Assets.escala,Assets.escala);
 		batch.draw(Assets.bonus_boton, Assets.bonus_boton.getRegionWidth() * 2, 0,Assets.escala,Assets.escala);
+<<<<<<< HEAD
 	
 		
         
@@ -53,6 +57,8 @@ public class PlayerCar extends Actor {
         Assets.font.draw(batch, "Puntos: ["+puntos+"]", Gdx.graphics.getWidth()-Gdx.graphics.getWidth()/10 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
         
 	
+=======
+>>>>>>> 3d0933654e3bfd918b5b56bc8df4a6eca9ff55c2
 	}
 	
 	private void updateBounds() {
@@ -100,6 +106,7 @@ public class PlayerCar extends Actor {
 		}
 	}
 
+<<<<<<< HEAD
 	public void button1(float x, float y){
 		if(bonusArray.size > 0 ){
 			Iterator<Bonus> iterB = bonusArray.iterator();
@@ -115,14 +122,24 @@ public class PlayerCar extends Actor {
 					}
 				
 			}
+=======
+	public void button1(){
+		if(bonusArray.size > 0){
+			
+>>>>>>> 3d0933654e3bfd918b5b56bc8df4a6eca9ff55c2
 		}
 		
 	}
 	
+<<<<<<< HEAD
 	
 	public void agregarPoder(Bonus poder){
 		bonusArray.add(poder);
 		
+=======
+	public void agregarPoder(Bonus poder){
+		bonusArray.add(poder);
+>>>>>>> 3d0933654e3bfd918b5b56bc8df4a6eca9ff55c2
 	}
 	
 	public int numeroPoderes(){
@@ -130,7 +147,11 @@ public class PlayerCar extends Actor {
 	}
 	
 	public void sumarPuntos(int extra_puntos){
+<<<<<<< HEAD
 		puntos += extra_puntos;
+=======
+		puntos = extra_puntos;
+>>>>>>> 3d0933654e3bfd918b5b56bc8df4a6eca9ff55c2
 	}
 	
 	public Rectangle getBounds() {

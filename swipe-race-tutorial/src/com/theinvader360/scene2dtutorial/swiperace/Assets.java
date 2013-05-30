@@ -12,9 +12,12 @@ public class Assets {
 	public static TextureRegion bonus_boton;
 	public static TextureRegion poder;
 	public static final float escala = Gdx.graphics.getHeight()/5;
+<<<<<<< HEAD
 	public static float velocidad_global = 1f;
 	public static float velocidad_local = velocidad_global;
 	public static BitmapFont font = new BitmapFont();
+=======
+>>>>>>> 3d0933654e3bfd918b5b56bc8df4a6eca9ff55c2
 	
 
 	public static void load() {

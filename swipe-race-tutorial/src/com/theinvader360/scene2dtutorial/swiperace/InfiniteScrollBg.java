@@ -9,7 +9,11 @@ public class InfiniteScrollBg extends Actor {
 		setWidth(width);
 		setHeight(height);
 		setPosition(width, 0);
+<<<<<<< HEAD
 		addAction(forever(sequence(moveTo(0, 0, Assets.velocidad_local), moveTo(width, 0))));
+=======
+		addAction(forever(sequence(moveTo(0, 0, 1f), moveTo(width, 0))));
+>>>>>>> 3d0933654e3bfd918b5b56bc8df4a6eca9ff55c2
 		
 	}
 
