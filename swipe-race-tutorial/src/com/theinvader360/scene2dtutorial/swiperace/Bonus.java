@@ -31,6 +31,11 @@ public class Bonus extends EnemyCar{
 
 	}
 	
+	public int getTipo(){
+		
+		return tipo;
+	}
+	
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		batch.setColor(getColor().r, getColor().g, getColor().b, getColor().a);		
 		if(tipo == 0){
@@ -48,7 +53,7 @@ public class Bonus extends EnemyCar{
 					} 
 			}else if(tipo == 2){
 				if(esActivo){
-					batch.draw(Assets.rapido, getX()-50, getY()-20, getWidth()/2, getHeight()/2, Assets.escala, Assets.escala, 1f, 2.5f, getRotation()+270);			
+					batch.draw(Assets.rapido, getX()-50, getY()-20, getWidth()/2, getHeight()/2, Assets.escala, Assets.escala, 1f, 2.5f, 270);			
 					
 					
 				}else{
@@ -84,6 +89,7 @@ public class Bonus extends EnemyCar{
 			}else if(tipo == 1){
 				} else if(tipo == 2){
 				}
+		addAction(fadeOut(5f));
 		addAction(sequence(scaleBy(200, 200, 5f),visible(false)));
 	}
 	

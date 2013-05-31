@@ -1,6 +1,8 @@
 package com.theinvader360.scene2dtutorial.swiperace;
 
 import java.util.Iterator;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -68,14 +70,16 @@ public class TrafficGame extends Table {
 			}
 			if (enemyCar.getBounds().overlaps(playerCar.getBounds())) {
                 iter.remove();
-                playerCar.perderVida();
+                
                 if (enemyCar.getX() > playerCar.getX()) {
-                    if (enemyCar.getY() > playerCar.getY()) enemyCar.crash(true, true);
-                    else enemyCar.crash(true, false);
+                    if (enemyCar.getY() > playerCar.getY()){ enemyCar.crash(true, true);}
+                    else{ enemyCar.crash(true, false);}
+                    playerCar.perderVida();
                 }
                 else {
                     if (enemyCar.getY() > playerCar.getY()) enemyCar.crash(false, true);
                     else enemyCar.crash(false, false);
+                   
                 }
 			}
 		}
@@ -166,9 +170,15 @@ public class TrafficGame extends Table {
 		
 	}
 	
+	public void Rapido(){
+		backgroundRoad.cambiarVelociada();
+	}
+	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		batch.setColor(Color.WHITE);
 		super.draw(batch, parentAlpha);
+		Assets.font.draw(batch, "nanotime: " +TimeUtils.nanoTime(), Gdx.graphics.getWidth()/5 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
+
 	}
 }

@@ -14,6 +14,7 @@ public class GameScreen implements Screen, GestureListener {
 	private TrafficGame trafficGame;
 	private MyGame game;
 	EnemyCar salir;
+	int blen = 0; 
 	
 	public GameScreen(MyGame _game) {
 		stage = new Stage();
@@ -48,11 +49,13 @@ public class GameScreen implements Screen, GestureListener {
 		 
 		// What faces to remove with the face culling.
 		 //Gdx.gl.glCullFace(GL10.GL_BACK);
+		
 	}
 
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(new GestureDetector(this));
+		
 	}
 
 	@Override 
@@ -72,11 +75,12 @@ public class GameScreen implements Screen, GestureListener {
 		
 		if(y > Gdx.graphics.getHeight()-Assets.escala){
 		
+		
 		trafficGame.playerCar.button1(x,Gdx.graphics.getHeight()- y);
-		if(x > Gdx.graphics.getWidth()/2){
+		if(x > Gdx.graphics.getWidth()/2 +Gdx.graphics.getWidth()/4){
 			if(salir.getBounds().overlaps(new Rectangle(x, y, 1, 1)));
 				game.menu();
-		}
+			}
 		}
 		
 

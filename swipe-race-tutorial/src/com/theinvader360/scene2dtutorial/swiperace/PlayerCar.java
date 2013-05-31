@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class PlayerCar extends Actor {
 	
@@ -22,6 +23,9 @@ public class PlayerCar extends Actor {
 	private int vidas;
 	private Array<Bonus> bonusArray;
 	private int cont_pasivos;
+	private boolean inmortal = false;
+	//private boolean fantasma = false;
+	private float activacionDeInmortal;
 	private boolean ocupado[] = new boolean[3]; 
 	
 	
@@ -41,6 +45,14 @@ public class PlayerCar extends Actor {
 	public void act(float delta){
 		super.act(delta);
 		updateBounds();
+		finInmortal();
+	}
+	
+	public void finInmortal(){
+		if(inmortal)
+		if (TimeUtils.nanoTime() - activacionDeInmortal> 3000000000f){
+			inmortal = false;
+		}
 	}
 
 	@Override
@@ -59,6 +71,8 @@ public class PlayerCar extends Actor {
         //informacion
         Assets.font.draw(batch, "Puntos: ["+puntos+"]", Gdx.graphics.getWidth()-Gdx.graphics.getWidth()/10 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
         Assets.font.draw(batch, "Vidas: ["+vidas+"]" + "FPS" + Gdx.graphics.getFramesPerSecond(), 0 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
+        if(inmortal)
+        Assets.font.draw(batch, "Inmortal: ", Gdx.graphics.getWidth()/7 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
 
 	}
 	
@@ -122,7 +136,11 @@ public class PlayerCar extends Actor {
 		}
 	}
 
-
+	public void esInmortal(){
+		inmortal = true;
+	}
+	
+	
 	public void button1(float x, float y){
 		if(bonusArray.size > 0 ){
 			
@@ -138,6 +156,16 @@ public class PlayerCar extends Actor {
 					BonusActual.ActivarBonus();
 					BonusActual.BonusActivo();
 					BonusActual.setX(getX());
+					if(BonusActual.getTipo() == 2){
+						trafficGame.Rapido();
+					}else if(BonusActual.getTipo() == 0){
+						esInmortal();
+						activacionDeInmortal = TimeUtils.nanoTime();
+					}else if(BonusActual.getTipo() == 1){
+						//esInmortal();
+						//activacionDeInmortal = TimeUtils.nanoTime();
+						ganarVida();
+					}
 					
 				
 				}
@@ -150,19 +178,21 @@ public class PlayerCar extends Actor {
 	}
 
 	public int perderVida(){
-		if(vidas > 0){
-			vidas--;
-		}
-		if(vidas == 0){
-			clearActions();
-			addAction(rotateBy(180, 1f));
+		if(!inmortal){
+			if(vidas > 0){
+				vidas--;
+			}
+			if(vidas == 0){
+				clearActions();
+				addAction(rotateBy(180, 1f));
+			}
 		}
 		
 		return vidas;
 	}
 	
 	public void ganarVida(){
-		if(vidas < 4){
+		if(vidas < 3){
 		vidas ++;	
 		}
 	}
@@ -178,6 +208,10 @@ public class PlayerCar extends Actor {
 	
 	public void agregarPoder(Bonus poder){
 		if(cont_pasivos < 3){
+		if(poder.getTipo() == 1){
+			//ganarVida();
+			}
+			
 		bonusArray.add(poder);
 		}
 		

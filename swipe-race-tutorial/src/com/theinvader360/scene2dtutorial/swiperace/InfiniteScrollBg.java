@@ -8,17 +8,23 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class InfiniteScrollBg extends Actor {
 	float maximo;
-	float suma;
-	public float extra;
+	float recorrido;
+	public float fin_rapido;
+	boolean activo;
+	float velocidad;
+	boolean velocidad_normal;
 	
 	public InfiniteScrollBg(float width, float height) {
 		setWidth(width);
 		setHeight(height);
 		setPosition(width, 0);
-		suma =0;
+		recorrido =0;
 		maximo = 1000;
-		addAction(forever(sequence(moveTo(0, 0, Assets.velocidad_local), moveTo(width, 0))));
-
+		activo = true;
+		velocidad = 2;
+		velocidad_normal = true;
+		//addAction(forever(sequence(moveTo(0, 0, Assets.velocidad_local), moveTo(width, 0))));
+		iniciarCamino(velocidad, maximo);
 		
 	}
 
@@ -26,36 +32,67 @@ public class InfiniteScrollBg extends Actor {
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		batch.draw(Assets.road, getX()-getWidth(), getY(), getWidth() * 2, getHeight());
-		Assets.font.draw(batch, "Distancia: ["+suma+"]", Gdx.graphics.getWidth()-Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
-	    
+		if(velocidad_normal){
+		Assets.font.draw(batch, "Distancia: ["+recorrido+"]", Gdx.graphics.getWidth()-Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
+		}else{ Assets.font.draw(batch, "2x Distancia: ["+recorrido+"]", Gdx.graphics.getWidth()-Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
+		}
 		
 		
 	}
 	
+	public void iniciarCamino(float _velocidad, float _distancia){
+		velocidad = _velocidad;
+		maximo = _distancia;
+		addAction(forever(sequence(moveTo(0, 0, velocidad ), moveTo(getWidth(), 0))));
+	}
+	
+	
+	
 	public boolean finCamino(){
-		if(suma >= maximo){
+		if(recorrido >= maximo){
 			return true;
 		}else return false;
 		
 	}
 	
-	public void cambiarVelociada(float extra){
-		
-		
+	public void cambiarVelociada(){
+		if(velocidad_normal){
+		fin_rapido = 50 + recorrido;
+		clearActions();
+		addAction(forever(sequence(moveTo(0, 0, velocidad -1f ), moveTo(getWidth(), 0))));
+		velocidad_normal = false;
+		}else{
+			fin_rapido = 50 + recorrido;
+			velocidad_normal = false;
+		}
 	}
 	
 	@Override
 	public void act(float delta) {
 		// TODO Auto-generated method stub
 		super.act(delta);
-		if(suma >= maximo){
-			pausaCamino();
-		}else{
-			suma+=0.1;
+		if(activo){
+			if(recorrido >= maximo){
+				pausaCamino();
+			}else{
+				if(recorrido < fin_rapido  ){
+				recorrido+=0.2;
+				}else{
+					if(!velocidad_normal){
+					clearActions();
+					addAction(forever(sequence(moveTo(0, 0, velocidad ), moveTo(getWidth(), 0))));
+					velocidad_normal = true;
+					}
+					recorrido+=0.1;
+				}
+				
+				
+			}
 		}
 	}
 	
 	public void pausaCamino(){
+		activo = false;
 		clearActions();
 	}
 	
