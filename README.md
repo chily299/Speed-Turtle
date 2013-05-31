@@ -1,4 +1,6 @@
-swipe-race-tutorial
+Speed Turtle
 ===================
 
-A simple game that makes use of LibGDX Scene2D and GestureDetector features
+Alpa game that makes use of LibGDX 
+
+
