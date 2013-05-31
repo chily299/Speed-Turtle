@@ -58,7 +58,7 @@ public class PlayerCar extends Actor {
 
         //informacion
         Assets.font.draw(batch, "Puntos: ["+puntos+"]", Gdx.graphics.getWidth()-Gdx.graphics.getWidth()/10 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
-        Assets.font.draw(batch, "Vidas: ["+vidas+"]", 0 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
+        Assets.font.draw(batch, "Vidas: ["+vidas+"]" + "FPS" + Gdx.graphics.getFramesPerSecond(), 0 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
 
 	}
 	
@@ -95,7 +95,7 @@ public class PlayerCar extends Actor {
 			
 		}
 		
-		
+		Assets.velocidad_local = velocidad;
 	}
 
 	public void tryMoveUp() {
@@ -165,6 +165,15 @@ public class PlayerCar extends Actor {
 		if(vidas < 4){
 		vidas ++;	
 		}
+	}
+	
+	public boolean estaVivo(){
+		
+		if(vidas > 0){
+			return true;
+		}
+		return false;
+		
 	}
 	
 	public void agregarPoder(Bonus poder){
