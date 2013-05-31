@@ -2,24 +2,16 @@ package com.theinvader360.scene2dtutorial.swiperace;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class GameScreen implements Screen, GestureListener {
 	private Stage stage;
 	private TrafficGame trafficGame;
-	private Menu menu;
 	private MyGame game;
 	EnemyCar salir;
 	
@@ -43,10 +35,19 @@ public class GameScreen implements Screen, GestureListener {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		//Gdx.gl.glClearColor(0, 0, 0, 1);
+		
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		
 		stage.act(delta);
 		stage.draw();
+		
+		//Gdx.gl.glEnable(GL10.GL_CULL_FACE);
+		 // Enable face culling- be careful with spriteBatch, might cull sprites as well!
+		 //Gdx.gl.glEnable(GL10.GL_CULL_FACE);
+		 
+		// What faces to remove with the face culling.
+		 //Gdx.gl.glCullFace(GL10.GL_BACK);
 	}
 
 	@Override
