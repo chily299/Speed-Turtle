@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class InfiniteScrollBg extends Actor {
 	float maximo;
 	float suma;
+	public float extra;
 	
 	public InfiniteScrollBg(float width, float height) {
 		setWidth(width);
@@ -38,17 +39,25 @@ public class InfiniteScrollBg extends Actor {
 		
 	}
 	
-	public void pausaCamino(){
-		clearActions();
+	public void cambiarVelociada(float extra){
+		
+		
 	}
 	
 	@Override
 	public void act(float delta) {
-		//super(delta);
+		// TODO Auto-generated method stub
+		super.act(delta);
 		if(suma >= maximo){
 			pausaCamino();
 		}else{
 			suma+=0.1;
 		}
 	}
+	
+	public void pausaCamino(){
+		clearActions();
+	}
+	
+	
 }

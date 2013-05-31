@@ -17,6 +17,13 @@ public class Assets {
 	public static TextureRegion road;
 	public static TextureRegion bonus_boton;
 	public static TextureRegion poder;
+	public static TextureRegion puntos;
+	public static TextureRegion rapido_icono;
+	public static TextureRegion comida_icono;
+	public static TextureRegion defensa_icono;
+	public static TextureRegion rapido;
+	public static TextureRegion comida;
+	public static TextureRegion defensa;
 	public static final float escala = Gdx.graphics.getHeight()/5;
 	
 
@@ -29,10 +36,17 @@ public class Assets {
 
 	public static void load() {
 		atlas = new TextureAtlas(Gdx.files.internal("empaquetado.atlas"));
-		car = atlas.findRegion("0001");
+		car = atlas.findRegion("0005");
 		road = atlas.findRegion("road");
 		bonus_boton = atlas.findRegion("espacio_poder");
 		poder = atlas.findRegion("poder");
+		rapido_icono = atlas.findRegion("rapido_icono");
+		comida_icono = atlas.findRegion("comida_icono");
+		defensa_icono = atlas.findRegion("defensa_icono");
+		rapido = atlas.findRegion("rapido");
+		comida = atlas.findRegion("cura");
+		defensa = atlas.findRegion("defensa");
+		puntos = atlas.findRegion("puntos");
 		
 		skin = new Skin();
 		

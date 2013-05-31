@@ -17,13 +17,14 @@ public class Bonus extends EnemyCar{
 		super(x, y);
 		// TODO Auto-generated constructor stub
 		tipo = MathUtils.random(0, 2);
-		if(tipo == 0){
+		/*if(tipo == 0){
 				setColor(Color.GREEN);
 			}else if(tipo == 1){
 				setColor(Color.RED);
 				} else if(tipo == 2){
 					setColor(Color.BLUE);
-				}
+				}*/
+		setColor(Color.WHITE);
 
 		esActivo = false;
 		index = -1;
@@ -35,30 +36,27 @@ public class Bonus extends EnemyCar{
 		if(tipo == 0){
 
 			if(esActivo){
-				batch.draw(Assets.bonus_boton, getX(), getY(), getWidth()/2, getHeight()/2, Assets.escala, Assets.escala, 1, 1, getRotation());			
+				batch.draw(Assets.defensa, getX(), getY(), getWidth()/2, getHeight()/2, Assets.escala, Assets.escala, 1, 1, getRotation());			
 			}else{
-				batch.draw(Assets.bonus_boton, getX(), getY(), getWidth()/2, getHeight()/2, Assets.escala, Assets.escala, 1, 1, getRotation());			
+				batch.draw(Assets.defensa_icono, getX(), getY(), getWidth()/2, getHeight()/2, Assets.escala, Assets.escala, 1, 1, getRotation());			
 				}
 			}else if(tipo == 1){
 				if(esActivo){
-					batch.draw(Assets.bonus_boton, getX(), getY(), getWidth()/2, getHeight()/2, Assets.escala, Assets.escala, 1, 1, getRotation());			
+					batch.draw(Assets.comida, getX(), getY(), getWidth()/2, getHeight()/2, Assets.escala, Assets.escala, 1, 1, getRotation());			
 				}else{
-					batch.draw(Assets.bonus_boton, getX(), getY(), getWidth()/2, getHeight()/2, Assets.escala, Assets.escala, 1, 1, getRotation());			
+					batch.draw(Assets.comida_icono, getX(), getY(), getWidth()/2, getHeight()/2, Assets.escala, Assets.escala, 1, 1, getRotation());			
 					} 
 			}else if(tipo == 2){
 				if(esActivo){
-					batch.draw(Assets.bonus_boton, getX(), getY(), getWidth()/2, getHeight()/2, Assets.escala, Assets.escala, 1, 1, getRotation());			
+					batch.draw(Assets.rapido, getX()-50, getY()-20, getWidth()/2, getHeight()/2, Assets.escala, Assets.escala, 1f, 2.5f, getRotation()+270);			
+					
+					
 				}else{
-					batch.draw(Assets.bonus_boton, getX(), getY(), getWidth()/2, getHeight()/2, Assets.escala, Assets.escala, 1, 1, getRotation());			
+					batch.draw(Assets.rapido_icono, getX(), getY(), getWidth()/2, getHeight()/2, Assets.escala, Assets.escala, 1, 1, getRotation());			
 					}
-
-		batch.draw(Assets.bonus_boton, getX(), getY(), getWidth()/2, getHeight()/2, Assets.escala, Assets.escala, 1, 1, getRotation());
-		}else if(tipo == 1){
-			batch.draw(Assets.bonus_boton, getX(), getY(), getWidth()/2, getHeight()/2, Assets.escala, Assets.escala, 1, 1, getRotation());
-			} else if(tipo == 2){
-				batch.draw(Assets.bonus_boton, getX(), getY(), getWidth()/2, getHeight()/2, Assets.escala, Assets.escala, 1, 1, getRotation());
-
 			}
+
+		
 		//Assets.font.draw(batch,""+index, getX(), getY());
 	}
 	
@@ -86,7 +84,7 @@ public class Bonus extends EnemyCar{
 			}else if(tipo == 1){
 				} else if(tipo == 2){
 				}
-		addAction(sequence(parallel(rotateBy(-720, 5f)),visible(false)));
+		addAction(sequence(scaleBy(200, 200, 5f),visible(false)));
 	}
 	
 	public void ActivarBonus(){

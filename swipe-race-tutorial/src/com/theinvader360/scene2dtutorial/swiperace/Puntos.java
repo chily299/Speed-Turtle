@@ -18,11 +18,13 @@ public class Puntos extends EnemyCar{
 	public Puntos(float x, float y) {
 		super(x, y);
 		// TODO Auto-generated constructor stub
+		setWidth(Assets.escala);
+		setHeight(Assets.escala);
 	}
 	
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		batch.setColor(getColor().r, getColor().g, getColor().b, getColor().a);		
-		batch.draw(Assets.poder, getX(), getY(), getWidth()/2, getHeight()/2, getWidth(), getHeight(), 1, 1, getRotation());
+		batch.draw(Assets.puntos, getX(), getY(), getWidth()/2, getHeight()/2, getWidth(), getHeight(), 1, 1, getRotation());
 	}
 
 	

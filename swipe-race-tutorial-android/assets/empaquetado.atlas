@@ -2,45 +2,73 @@ empaquetado.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+defensa
+  rotate: false
+  xy: 157, 157
+  size: 239, 128
+  orig: 239, 128
+  offset: 0, 0
+  index: -1
+cura
+  rotate: false
+  xy: 414, 2
+  size: 205, 92
+  orig: 205, 92
+  offset: 0, 0
+  index: -1
 espacio_poder
   rotate: false
-  xy: 828, 2
+  xy: 172, 2
   size: 118, 118
   orig: 118, 118
   offset: 0, 0
   index: -1
-0001
+rapido
   rotate: false
   xy: 2, 2
-  size: 350, 250
-  orig: 350, 250
+  size: 168, 65
+  orig: 168, 65
   offset: 0, 0
   index: -1
-car
+defensa_icono
   rotate: false
-  xy: 706, 2
-  size: 120, 64
-  orig: 120, 64
+  xy: 776, 2
+  size: 153, 153
+  orig: 153, 153
   offset: 0, 0
   index: -1
 0005
   rotate: false
-  xy: 354, 2
+  xy: 590, 157
   size: 350, 250
   orig: 350, 250
   offset: 0, 0
   index: -1
 road
   rotate: false
-  xy: 96, 254
+  xy: 292, 2
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
-poder
+comida_icono
   rotate: false
-  xy: 2, 254
-  size: 92, 91
-  orig: 92, 91
+  xy: 2, 157
+  size: 153, 153
+  orig: 153, 153
+  offset: 0, 0
+  index: -1
+rapido_icono
+  rotate: false
+  xy: 621, 2
+  size: 153, 153
+  orig: 153, 153
+  offset: 0, 0
+  index: -1
+puntos
+  rotate: false
+  xy: 398, 157
+  size: 190, 193
+  orig: 190, 193
   offset: 0, 0
   index: -1
