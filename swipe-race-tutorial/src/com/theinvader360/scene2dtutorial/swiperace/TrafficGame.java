@@ -36,9 +36,26 @@ public class TrafficGame extends Table {
 		
 	}
 	
+	public void GanoNivel(){
+		
+		
+	}
+	
+	public void PerdioNivel(){
+		backgroundRoad.pausaCamino();
+		
+	}
+	
 	@Override
 	public void act(float delta) {
 		super.act(delta);
+		backgroundRoad.act(delta);
+		
+		
+		if(!backgroundRoad.finCamino()){
+		//pantalla de ganar
+			
+		if(playerCar.estaVivo()){
 		
 		if (TimeUtils.nanoTime() - lastCarTime > 3000000000f) spawnCar();
 		//enemigos
@@ -108,6 +125,13 @@ public class TrafficGame extends Table {
 				}
 			
 		}
+		
+		}else {
+			PerdioNivel();
+		}
+		}else{
+			GanoNivel();
+		}
 	}
 
 	private void spawnCar() {
@@ -138,6 +162,8 @@ public class TrafficGame extends Table {
 		
 		
 		lastCarTime = TimeUtils.nanoTime();
+		
+		
 	}
 	
 	@Override
