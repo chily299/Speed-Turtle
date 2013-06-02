@@ -13,17 +13,11 @@ public class Bonus extends EnemyCar{
 	
 	public boolean esActivo = false;
 
-	public Bonus(float x, float y) {
+	public Bonus(float x, float y, int _tipo) {
 		super(x, y);
 		// TODO Auto-generated constructor stub
-		tipo = MathUtils.random(0, 2);
-		/*if(tipo == 0){
-				setColor(Color.GREEN);
-			}else if(tipo == 1){
-				setColor(Color.RED);
-				} else if(tipo == 2){
-					setColor(Color.BLUE);
-				}*/
+		tipo = _tipo;
+	
 		setColor(Color.WHITE);
 
 		esActivo = false;

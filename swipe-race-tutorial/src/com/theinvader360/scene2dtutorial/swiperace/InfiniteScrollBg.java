@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class InfiniteScrollBg extends Actor {
-	float maximo;
+	float Distancia;
 	float recorrido;
 	public float fin_rapido;
 	boolean activo;
@@ -19,12 +19,12 @@ public class InfiniteScrollBg extends Actor {
 		setHeight(height);
 		setPosition(width, 0);
 		recorrido =0;
-		maximo = 1000;
+		Distancia = 1000;
 		activo = true;
 		velocidad = 2;
 		velocidad_normal = true;
 		//addAction(forever(sequence(moveTo(0, 0, Assets.velocidad_local), moveTo(width, 0))));
-		iniciarCamino(velocidad, maximo);
+		iniciarCamino(velocidad, Distancia);
 		
 	}
 
@@ -42,14 +42,14 @@ public class InfiniteScrollBg extends Actor {
 	
 	public void iniciarCamino(float _velocidad, float _distancia){
 		velocidad = _velocidad;
-		maximo = _distancia;
+		Distancia = _distancia;
 		addAction(forever(sequence(moveTo(0, 0, velocidad ), moveTo(getWidth(), 0))));
 	}
 	
 	
 	
 	public boolean finCamino(){
-		if(recorrido >= maximo){
+		if(recorrido >= Distancia){
 			return true;
 		}else return false;
 		
@@ -72,7 +72,7 @@ public class InfiniteScrollBg extends Actor {
 		// TODO Auto-generated method stub
 		super.act(delta);
 		if(activo){
-			if(recorrido >= maximo){
+			if(recorrido >= Distancia){
 				pausaCamino();
 			}else{
 				if(recorrido < fin_rapido  ){

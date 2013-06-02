@@ -18,7 +18,7 @@ public class GameScreen implements Screen, GestureListener {
 	
 	public GameScreen(MyGame _game) {
 		stage = new Stage();
-		trafficGame = new TrafficGame();
+		trafficGame = new TrafficGame(1);
 		stage.addActor(trafficGame);
 		game = _game;
 		
@@ -42,14 +42,6 @@ public class GameScreen implements Screen, GestureListener {
 		
 		stage.act(delta);
 		stage.draw();
-		
-		//Gdx.gl.glEnable(GL10.GL_CULL_FACE);
-		 // Enable face culling- be careful with spriteBatch, might cull sprites as well!
-		 //Gdx.gl.glEnable(GL10.GL_CULL_FACE);
-		 
-		// What faces to remove with the face culling.
-		 //Gdx.gl.glCullFace(GL10.GL_BACK);
-		
 	}
 
 	@Override

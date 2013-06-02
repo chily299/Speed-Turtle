@@ -243,4 +243,8 @@ public class PlayerCar extends Actor {
 	public Rectangle getBounds() {
 		return bounds;
 	}
+	
+	public int getPuntos(){
+		return puntos;
+	}
 }

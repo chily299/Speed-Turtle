@@ -20,9 +20,15 @@ public class TrafficGame extends Table {
 	public  float lane1 = 0;
 	public  float lane0 = 0;
 	public PlayerCar playerCar;
-	private int tipo, linea;
+	private int linea;
+	private Nivel nivel;
+	private float ultimoEnemigo;
+	private float ultimoBonus;
+	private float ultimoPunto;
+	private int contPuntos;
+	public boolean gano;
 	
-	public TrafficGame() {
+	public TrafficGame(int _nivel) {
 		setBounds(0,0, 800, 480);
 		setClip(true);
 		lane2 = getHeight()/2 + getHeight()/4;
@@ -35,11 +41,12 @@ public class TrafficGame extends Table {
 		enemyCars = new Array<EnemyCar>();		
 		bonusArray = new Array<Bonus>();	
 		pointsArray = new Array<Puntos>();	
-		
+		nivel = new Nivel();
+		nuevoJuego(_nivel);
 	}
 	
 	public void GanoNivel(){
-		
+		gano = true;
 		
 	}
 	
@@ -54,12 +61,17 @@ public class TrafficGame extends Table {
 		backgroundRoad.act(delta);
 		
 		
+		if(backgroundRoad.finCamino()){ //
+			GanoNivel();
+		}
+		
+		
 		if(!backgroundRoad.finCamino()){
 		//pantalla de ganar
 			
 		if(playerCar.estaVivo()){
 		
-		if (TimeUtils.nanoTime() - lastCarTime > 3000000000f) spawnCar();
+		if (TimeUtils.nanoTime() - lastCarTime > 800000000f) spawnCar();
 		//enemigos
 		Iterator<EnemyCar> iter = enemyCars.iterator();
 		while (iter.hasNext()) {
@@ -139,31 +151,84 @@ public class TrafficGame extends Table {
 	}
 
 	private void spawnCar() {
-		linea = MathUtils.random(0, 2);
-		float yPos = 0;
-		if (linea == 0) yPos = lane0;
-		if (linea == 1) yPos = lane1;
-		if (linea == 2) yPos = lane2;
-		tipo = MathUtils.random(0, 2);
 		
-		if (tipo == 0){
-			EnemyCar enemyCar = new EnemyCar(getWidth(), yPos);
-			enemyCars.add(enemyCar);
-			addActor(enemyCar);
-		}else if (tipo == 1){
-			Bonus enemyCar = new Bonus(getWidth(), yPos);
-			bonusArray.add(enemyCar);
-			addActor(enemyCar);
+		int lineasUsadas =0;
+		float yPos = 0;
+		if(backgroundRoad.recorrido - ultimoEnemigo > nivel.frecuenciaEnemigos){
+			EnemyCar enemyCar;
+			switch (nivel.getTipoEnemigo()) {
+			case 1:
+				linea = MathUtils.random(0, 2);
+				
+				if (linea == 0) yPos = lane0;
+				if (linea == 1) yPos = lane1;
+				if (linea == 2) yPos = lane2;
+				
+				enemyCar = new EnemyCar(getWidth(), yPos);
+				enemyCars.add(enemyCar);
+				addActor(enemyCar);
+				lineasUsadas = linea;
+				while(linea == lineasUsadas){
+					linea = MathUtils.random(0, 2);
+				}
+				
+				if (linea == 0) yPos = lane0;
+				if (linea == 1) yPos = lane1;
+				if (linea == 2) yPos = lane2;
+				
+				enemyCar = new EnemyCar(getWidth(), yPos);
+				enemyCars.add(enemyCar);
+				addActor(enemyCar);
+				break;
+
+			default:
+				linea = MathUtils.random(0, 2);
+				
+				if (linea == 0) yPos = lane0;
+				if (linea == 1) yPos = lane1;
+				if (linea == 2) yPos = lane2;
+				
+				enemyCar = new EnemyCar(getWidth(), yPos);
+				enemyCars.add(enemyCar);
+				addActor(enemyCar);
+				lineasUsadas = linea;
+				break;
+			}
 			
-		}else if (tipo == 2){
-			Puntos enemyCar = new Puntos(getWidth(), yPos);
-			pointsArray.add(enemyCar);
-			addActor(enemyCar);
 			
+			ultimoEnemigo = backgroundRoad.recorrido;
 		}
 		
 		
+		if(backgroundRoad.recorrido - ultimoBonus > nivel.frecuenciaBonus){
+			linea = MathUtils.random(0, 2);
+			while(linea == lineasUsadas){
+				linea = MathUtils.random(0, 2);
+			}
+			
+			if (linea == 0) yPos = lane0;
+			if (linea == 1) yPos = lane1;
+			if (linea == 2) yPos = lane2;
+			
+			Bonus enemyCar = new Bonus(getWidth(), yPos,nivel.getTipoBonus());
+			bonusArray.add(enemyCar);
+			addActor(enemyCar);
+			ultimoBonus = backgroundRoad.recorrido;
+		}
 		
+		if(backgroundRoad.recorrido - ultimoPunto > nivel.frecuenciaPuntos && contPuntos < nivel.puntos){
+			linea = MathUtils.random(0, 2);
+			
+			if (linea == 0) yPos = lane0;
+			if (linea == 1) yPos = lane1;
+			if (linea == 2) yPos = lane2;
+			
+			Puntos enemyCar = new Puntos(getWidth(), yPos);
+			pointsArray.add(enemyCar);
+			addActor(enemyCar);
+			ultimoPunto = backgroundRoad.recorrido;
+			contPuntos++;
+		}
 		
 		lastCarTime = TimeUtils.nanoTime();
 		
@@ -174,11 +239,23 @@ public class TrafficGame extends Table {
 		backgroundRoad.cambiarVelociada();
 	}
 	
+	public void nuevoJuego(int _nivel){
+		nivel.setNivel(_nivel);
+		backgroundRoad.Distancia = nivel.distancia;
+		ultimoBonus = ultimoPunto = ultimoEnemigo =0;
+		gano = false;
+		
+	}
+	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		batch.setColor(Color.WHITE);
 		super.draw(batch, parentAlpha);
-		Assets.font.draw(batch, "nanotime: " +TimeUtils.nanoTime(), Gdx.graphics.getWidth()/5 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
-
+		Assets.font.draw(batch, "Puntos generados: " +contPuntos, Gdx.graphics.getWidth()/5 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
+		
+		if(gano){
+			Assets.font.draw(batch, "Nivel completo - Puntos de nivel: " +playerCar.getPuntos()+"/"+contPuntos, Gdx.graphics.getWidth()/3 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/2);
+			Assets.font.draw(batch, "Acumulado: " +9999999, Gdx.graphics.getWidth()/3 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/3);
+		}
 	}
 }
