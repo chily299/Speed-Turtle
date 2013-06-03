@@ -31,7 +31,7 @@ public class Puntos extends EnemyCar{
 	public void crash(boolean front, boolean above) {
 		clearActions();
 		addAction(fadeOut(2f));
-		addAction(sequence(parallel(rotateBy(-720, 1.5f), moveTo(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),1f)), removeActor()));
+		addAction(sequence(parallel(rotateBy(-720, 1.5f), moveTo(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20,1f)), removeActor()));
 		
 	}
 }

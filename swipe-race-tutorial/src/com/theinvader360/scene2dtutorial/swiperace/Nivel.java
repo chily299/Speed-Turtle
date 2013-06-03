@@ -26,6 +26,8 @@ public class Nivel {
 	/*total de comida del nivel no varia*/
 	public float comida;
 	
+	public float velocidad;
+	
 	public float tipoPoder;
 	
 	
@@ -43,30 +45,70 @@ public class Nivel {
 		nivelActual = _nivel;
 		switch (nivelActual) {
 		case 1:
-			distancia = 100;
-			puntos = 30;
+			distancia = 800;
+			puntos = 30;  
 			frecuenciaEnemigos = 30;
-			frecuenciaBonus = 80;
+			frecuenciaBonus = 20;
 			frecuenciaPuntos = (distancia-100)/puntos ;
 			enemigo_solo = 50;
 			enemigo_doble = 0;
 			rapido = 40;
 			defensa = 40;
 			comida = 20;
+			velocidad = 7;
 			
 			break;
 		case 2:
-			distancia = 1100;
+			distancia = 900;
 			puntos = 35;
 			frecuenciaEnemigos = 30;
-			frecuenciaBonus = 80;
+			frecuenciaBonus = 100;
 			frecuenciaPuntos = (distancia-100)/puntos ;
 			enemigo_solo = 50;
 			enemigo_doble =10;
 			rapido = 40;
 			defensa = 40;
 			comida = 20;
-			
+			velocidad = 7;
+			break;
+		case 3:
+			distancia = 1000;
+			puntos = 40;
+			frecuenciaEnemigos = 30;
+			frecuenciaBonus = 80;
+			frecuenciaPuntos = (distancia-100)/puntos ;
+			enemigo_solo = 50;
+			enemigo_doble =12;
+			rapido = 40;
+			defensa = 40;
+			comida = 15;
+			velocidad = 7;
+			break;
+		case 4:
+			distancia = 1050;
+			puntos = 35;
+			frecuenciaEnemigos = 30;
+			frecuenciaBonus = 110;
+			frecuenciaPuntos = (distancia-100)/puntos ;
+			enemigo_solo = 50;
+			enemigo_doble =15;
+			rapido = 20;
+			defensa = 40;
+			comida = 10;
+			velocidad = 7;
+			break;
+		case 5:
+			distancia = 1100;
+			puntos = 50;
+			frecuenciaEnemigos = 29;
+			frecuenciaBonus = 60;
+			frecuenciaPuntos = (distancia-100)/puntos ;
+			enemigo_solo = 50;
+			enemigo_doble =40;
+			rapido = 40;
+			defensa = 40;
+			comida = 20;
+			velocidad = 8;
 			break;
 
 		default:
@@ -80,6 +122,7 @@ public class Nivel {
 			rapido = 40;
 			defensa = 40;
 			comida = 20;
+			velocidad = 5;
 			
 			break;
 		}

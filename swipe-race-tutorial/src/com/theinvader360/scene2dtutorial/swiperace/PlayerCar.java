@@ -31,14 +31,27 @@ public class PlayerCar extends Actor {
 	
 	public PlayerCar(TrafficGame trafficGame) {
 		this.trafficGame = trafficGame;
+		bonusArray = new Array<Bonus>();
+		nuevo();
+	}
+	
+	public void nuevo(){
 		setWidth(160);
 		setHeight(85);
 		lane = 1;
 		setPosition(100, trafficGame.lane1 - getHeight()/2);
 		setColor(Color.WHITE);
-		bonusArray = new Array<Bonus>();
 		velocidad = Assets.velocidad_global;
 		vidas = 3;
+		
+		Iterator<Bonus> iterB = bonusArray.iterator();
+		
+		while (iterB.hasNext()) {
+			Bonus BonusActual = iterB.next();
+			BonusActual.addAction(removeActor());
+		}
+		bonusArray.clear();
+		
 	}
 	
 	@Override
@@ -69,11 +82,9 @@ public class PlayerCar extends Actor {
         
 
         //informacion
-        Assets.font.draw(batch, "Puntos: ["+puntos+"]", Gdx.graphics.getWidth()-Gdx.graphics.getWidth()/10 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
+        Assets.font.draw(batch, "Puntos: "+puntos+"", Gdx.graphics.getWidth()-Assets.escala, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
         Assets.font.draw(batch, "Vidas: ["+vidas+"]" + "FPS" + Gdx.graphics.getFramesPerSecond(), 0 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
-        if(inmortal)
-        Assets.font.draw(batch, "Inmortal: ", Gdx.graphics.getWidth()/7 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
-
+        
 	}
 	
 	private void updateBounds() {
@@ -211,7 +222,8 @@ public class PlayerCar extends Actor {
 		if(poder.getTipo() == 1){
 			//ganarVida();
 			}
-			
+		poder.setHeight(Assets.escala);
+		poder.setWidth(Assets.escala);
 		bonusArray.add(poder);
 		}
 		

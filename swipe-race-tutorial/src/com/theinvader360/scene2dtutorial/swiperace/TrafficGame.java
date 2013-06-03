@@ -1,12 +1,27 @@
 package com.theinvader360.scene2dtutorial.swiperace;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.removeActor;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.rotateBy;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.visible;
+
 import java.util.Iterator;
+
+import javax.sound.midi.Sequence;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
@@ -27,6 +42,9 @@ public class TrafficGame extends Table {
 	private float ultimoPunto;
 	private int contPuntos;
 	public boolean gano;
+	public Label Infonivel;
+	public Label labelPuntosNivel;
+	public Table table;
 	
 	public TrafficGame(int _nivel) {
 		setBounds(0,0, 800, 480);
@@ -42,17 +60,90 @@ public class TrafficGame extends Table {
 		bonusArray = new Array<Bonus>();	
 		pointsArray = new Array<Puntos>();	
 		nivel = new Nivel();
-		nuevoJuego(_nivel);
+		
+		
+		
+		//tabla final
+		table = new Table();
+		table.setLayoutEnabled(false);
+		
+				TextButton siguiente = new TextButton("Siguiente", Assets.skin);
+				siguiente.setBounds(Gdx.graphics.getWidth()/2, Assets.escala*1,Assets.escala,Assets.escala);
+				table.add(siguiente);
+				Infonivel =new Label("Total Puntos Nivel: "+playerCar.getPuntos(),  Assets.skin);
+				Infonivel.setBounds(Gdx.graphics.getWidth()/3, Assets.escala*2,Assets.escala,Assets.escala);
+				table.add(Infonivel);
+				labelPuntosNivel =new Label("Nivel 1-"+nivel.nivelActual+" Completo",  Assets.skin);
+				labelPuntosNivel.setBounds(Gdx.graphics.getWidth()/3, Assets.escala*3,Assets.escala,Assets.escala);
+				table.add(labelPuntosNivel);
+				addActor(table);
+				
+				siguiente.addListener(new EventListener() {
+					
+					@Override
+					public boolean handle(Event event) {
+						// TODO Auto-generated method stub
+						//System.out.println(""+event.toString());
+						
+						if(event.toString() == "touchDown"){
+							nuevoJuego(++nivel.nivelActual);
+						}
+						
+						return false;
+					}
+				});
+				
+				
+				nuevoJuego(_nivel);
+		
+	}
+	
+	public void mostrarTotalNivel(){
+		//table.addAction(visible(true));
+		
+		Infonivel.setText("Nivel "+nivel.nivelActual+" Completo");
+		labelPuntosNivel.setText("Total Puntos Nivel: "+playerCar.getPuntos());
+		table.setVisible(true);
+	}
+	
+	public void ocultarTotalNivel(){
+
+		//table.addAction(sequence( fadeOut(0.8f),visible(false)));
+		table.setVisible(false);
 	}
 	
 	public void GanoNivel(){
 		gano = true;
+		mostrarTotalNivel();
+		limpiarPantalla();
+	}
+	
+	public void limpiarPantalla() {
+		Iterator<EnemyCar> iter = enemyCars.iterator();
+		while (iter.hasNext()) {
+			EnemyCar enemyCar = iter.next();
+			enemyCar.remove();
+		}
 		
+		
+		//puntos
+		Iterator<Puntos> iterP = pointsArray.iterator();
+		while (iterP.hasNext()) {
+			Puntos enemyCar = iterP.next();
+			enemyCar.remove();
+		}
+		//bonus
+		Iterator<Bonus> iterB = bonusArray.iterator();
+		while (iterB.hasNext()) {
+			Bonus enemyCar = iterB.next();
+			enemyCar.remove();
+			
+		}
 	}
 	
 	public void PerdioNivel(){
 		backgroundRoad.pausaCamino();
-		
+		limpiarPantalla();
 	}
 	
 	@Override
@@ -241,9 +332,17 @@ public class TrafficGame extends Table {
 	
 	public void nuevoJuego(int _nivel){
 		nivel.setNivel(_nivel);
-		backgroundRoad.Distancia = nivel.distancia;
-		ultimoBonus = ultimoPunto = ultimoEnemigo =0;
+		//backgroundRoad.Distancia = nivel.distancia;
+		ultimoBonus = ultimoPunto = ultimoEnemigo = contPuntos =0;
+		//playerCar = new PlayerCar(this);
+		bonusArray.clear();
+		enemyCars.clear();
+		pointsArray.clear();
+		backgroundRoad.iniciarCamino(nivel.velocidad, nivel.distancia);
+		playerCar.nuevo();
+		Infonivel.setText("Nivel 1-"+nivel.nivelActual+" Completo");
 		gano = false;
+		ocultarTotalNivel();
 		
 	}
 	
@@ -251,11 +350,6 @@ public class TrafficGame extends Table {
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		batch.setColor(Color.WHITE);
 		super.draw(batch, parentAlpha);
-		Assets.font.draw(batch, "Puntos generados: " +contPuntos, Gdx.graphics.getWidth()/5 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
-		
-		if(gano){
-			Assets.font.draw(batch, "Nivel completo - Puntos de nivel: " +playerCar.getPuntos()+"/"+contPuntos, Gdx.graphics.getWidth()/3 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/2);
-			Assets.font.draw(batch, "Acumulado: " +9999999, Gdx.graphics.getWidth()/3 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/3);
-		}
+		Assets.font.draw(batch, "Nivel: " +nivel.nivelActual, Gdx.graphics.getWidth()/3 , Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
 	}
 }

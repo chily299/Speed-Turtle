@@ -1,13 +1,19 @@
 package com.theinvader360.scene2dtutorial.swiperace;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class GameScreen implements Screen, GestureListener {
 	private Stage stage;
@@ -15,6 +21,7 @@ public class GameScreen implements Screen, GestureListener {
 	private MyGame game;
 	EnemyCar salir;
 	int blen = 0; 
+	public InputMultiplexer multiplexer;
 	
 	public GameScreen(MyGame _game) {
 		stage = new Stage();
@@ -24,10 +31,32 @@ public class GameScreen implements Screen, GestureListener {
 		
 		//salir
 		
-		salir = new EnemyCar(Gdx.graphics.getWidth()-Assets.escala, 0);
-		salir.clearActions();
+		TextButton salir = new TextButton("Salir", Assets.skin);
+		salir.setBounds(Gdx.graphics.getWidth()-Assets.escala,0,Assets.escala,Assets.escala);
 		stage.addActor(salir);
+		
+		salir.addListener(new EventListener() {
+			
+			@Override
+			public boolean handle(Event event) {
+				// TODO Auto-generated method stub
+				//System.out.println(""+event.toString());
+				
+				if(event.toString() == "touchDown"){
+					game.menu();
+				}
+				
+				return false;
+			}
+		});
+		
+				
+				multiplexer = new InputMultiplexer();
+				multiplexer.addProcessor(new GestureDetector(this));
+				multiplexer.addProcessor(stage);
 	}
+	
+
 	
 	public void resize(int width, int height) {
 		stage.setViewport(MyGame.WIDTH, MyGame.HEIGHT, true);
@@ -46,7 +75,7 @@ public class GameScreen implements Screen, GestureListener {
 
 	@Override
 	public void show() {
-		Gdx.input.setInputProcessor(new GestureDetector(this));
+		Gdx.input.setInputProcessor(multiplexer);
 		
 	}
 
@@ -69,10 +98,7 @@ public class GameScreen implements Screen, GestureListener {
 		
 		
 		trafficGame.playerCar.button1(x,Gdx.graphics.getHeight()- y);
-		if(x > Gdx.graphics.getWidth()/2 +Gdx.graphics.getWidth()/4){
-			if(salir.getBounds().overlaps(new Rectangle(x, y, 1, 1)));
-				game.menu();
-			}
+		
 		}
 		
 

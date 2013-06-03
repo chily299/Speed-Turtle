@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 
@@ -29,7 +30,7 @@ public class Assets {
 
 	public static float velocidad_global = 1f;
 	public static float velocidad_local = velocidad_global;
-	public static BitmapFont font = new BitmapFont();
+	public static BitmapFont font = new BitmapFont(Gdx.files.internal("fuente.fnt"),Gdx.files.internal("fuente.png"),false);
 	public static Skin skin;
 
 	
@@ -47,6 +48,9 @@ public class Assets {
 		comida = atlas.findRegion("cura");
 		defensa = atlas.findRegion("defensa");
 		puntos = atlas.findRegion("puntos");
+		
+		//fuente
+		font.setScale(0.5f);
 		
 		skin = new Skin();
 		
@@ -69,6 +73,9 @@ public class Assets {
 						textButtonStyle.font = skin.getFont("default");
 						skin.add("default", textButtonStyle);
 
+						LabelStyle labelStyle =new LabelStyle();
+						labelStyle.font = font;
+						skin.add("default", labelStyle);
 						// Create a table that fills the screen. Everything else will go inside this table.
 		
 	}
