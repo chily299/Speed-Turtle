@@ -3,6 +3,7 @@ package com.theinvader360.scene2dtutorial.swiperace;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -12,7 +13,10 @@ public class InfiniteScrollBg extends Actor {
 	public float fin_rapido;
 	boolean activo;
 	float velocidad;
+	float fondolejanoX;
+	float fondosercanoX;
 	boolean velocidad_normal;
+	public boolean prepararMeta;
 	
 	public InfiniteScrollBg(float width, float height) {
 		setWidth(width);
@@ -23,15 +27,33 @@ public class InfiniteScrollBg extends Actor {
 		activo = true;
 		velocidad =9;
 		velocidad_normal = true;
+		prepararMeta = false;
 		//addAction(forever(sequence(moveTo(0, 0, Assets.velocidad_local), moveTo(width, 0))));
 		iniciarCamino(velocidad, Distancia);
+		fondolejanoX = getWidth();
 		
 	}
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		batch.draw(Assets.road, getX()-getWidth(), getY(), getWidth() * 2, getHeight());
+		
+		//zona de las estadisticas
+		batch.draw(Assets.road, fondolejanoX-getWidth(),getY()+ getHeight()-(Assets.escala/2), getWidth() * 2, Assets.escala/2);
+		//lineas
+		batch.draw(Assets.road, getX()-getWidth(),getY()+ (getHeight()/2)+(getHeight()/4)-Assets.escala/2, getWidth() * 2, getHeight()/4);
+		batch.draw(Assets.road, getX()-getWidth(),getY()+ (getHeight()/2)-Assets.escala/2, getWidth() * 2, getHeight()/4);
+		batch.draw(Assets.road, getX()-getWidth(),getY()+ (getHeight()/2)-(getHeight()/4)-Assets.escala/2, getWidth() * 2, getHeight()/4);
+		
+		//zona de los botones
+				//batch.draw(Assets.road, fondosercanoX-getWidth(),getY(), getWidth() * 2, getHeight()/5);
+		
+		
+		if(prepararMeta){
+			
+			batch.draw(Assets.road, getX(), getY(), getWidth() * 2, getHeight());
+		}
+		
 		if(velocidad_normal){
 		Assets.font.draw(batch, "["+(int)(Distancia-recorrido)+"]", Gdx.graphics.getWidth()-Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
 		}else{ Assets.font.draw(batch, "["+(int)(Distancia-recorrido)+"]", Gdx.graphics.getWidth()-Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/20);
@@ -47,6 +69,7 @@ public class InfiniteScrollBg extends Actor {
 		activo = true;
 		velocidad_normal = true;
 		fin_rapido = 0;
+		prepararMeta = false;
 	}
 	
 	
@@ -75,10 +98,17 @@ public class InfiniteScrollBg extends Actor {
 		if(activo){
 			if(getX() > 0){
 			setX(getX()-velocidad);
+			fondolejanoX =fondolejanoX-(velocidad-5f); 
+			fondosercanoX = fondosercanoX-(velocidad); 
 			}else if(getX()<=0){
 			setX(getWidth());
+			fondolejanoX = getWidth();
+			fondosercanoX = getWidth();
 			}
 			
+			if(Distancia - recorrido <8){
+				prepararMeta = true;
+			}
 			
 			
 			if(recorrido >= Distancia){
@@ -94,6 +124,7 @@ public class InfiniteScrollBg extends Actor {
 					}
 					recorrido+=0.1;
 				}
+			
 				
 				
 			}

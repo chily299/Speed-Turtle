@@ -47,7 +47,7 @@ public class TrafficGame extends Table {
 	public Table table;
 	
 	public TrafficGame(int _nivel) {
-		setBounds(0,0, 800, 480);
+		setBounds(0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		setClip(true);
 		lane2 = getHeight()/2 + getHeight()/4;
 		lane1 = getHeight()/2;
